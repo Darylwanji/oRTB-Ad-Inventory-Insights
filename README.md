@@ -27,7 +27,7 @@ oRTB Ad Inventory Insights is a data analytics tool designed to help ad tech pro
 
 The data processing pipeline uses Dagster for workflow orchestration:
 
-![Dagster UI Unmaterialized Assets](./oRTB_Ad_Inventory_Insights/Pictures/DagsterUI-Unmaterialized-logs.png)
+![Dagster UI Unmaterialized Assets](./oRTB_Ad_Inventory_Insights/Pictures/DagsterUI-UnMaterialized-Logs.png)
 *Initial state of Dagster UI showing unmaterialized assets*
 
 ![Dagster UI Materialized Assets](./oRTB_Ad_Inventory_Insights/Pictures/DagsterUI-Materialized.png)
