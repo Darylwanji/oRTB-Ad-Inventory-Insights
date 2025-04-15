@@ -23,6 +23,23 @@ oRTB Ad Inventory Insights is a data analytics tool designed to help ad tech pro
   - Heatmap analysis of KPIs by geo and device
 - **Data Simulation**: Built-in capability to generate realistic RTB traffic data for testing and development
 
+## Dagster Pipeline Workflow
+
+The data processing pipeline uses Dagster for workflow orchestration:
+
+![Dagster UI Unmaterialized Assets](./oRTB_Ad_Inventory_Insights/Pictures/DagsterUI-Unmaterialized-logs.png)
+*Initial state of Dagster UI showing unmaterialized assets*
+
+![Dagster UI Materialized Assets](./oRTB_Ad_Inventory_Insights/Pictures/DagsterUI-Materialized.png)
+*Dagster UI after successful materialization of all assets*
+
+## Interactive Dashboard
+
+After materializing all assets, the interactive dashboard provides comprehensive visualization capabilities:
+
+![Dashboard](./oRTB_Ad_Inventory_Insights/Pictures/DagsterUI-Materialized-Dashboard.png)
+*The Streamlit dashboard with visualized RTB metrics*
+
 ## Installation
 
 ### Prerequisites
