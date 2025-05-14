@@ -79,7 +79,7 @@ def calculate_seasonal_patterns(load_ortb_bid_data: pd.DataFrame) -> pd.DataFram
     return monthly_patterns
 
 @dg.asset(deps=[load_ortb_bid_data])
-def bid_rate(load_ortb_bid_data: pd.DataFrame) -> float:    
+def calc_bid_rate(load_ortb_bid_data: pd.DataFrame) -> float:    
     """
     Calculate the bid rate.
     """
@@ -88,7 +88,7 @@ def bid_rate(load_ortb_bid_data: pd.DataFrame) -> float:
     return bids_received / total_bids if total_bids > 0 else 0
 
 @dg.asset(deps=[load_ortb_bid_data])
-def win_rate(load_ortb_bid_data: pd.DataFrame) -> float:
+def calc_win_rate(load_ortb_bid_data: pd.DataFrame) -> float:
     """
     Calculate the win rate.
     """
@@ -113,11 +113,11 @@ def avg_latency(load_ortb_bid_data: pd.DataFrame) -> float:
     response_time = load_ortb_bid_data['response_time_ms']
     return response_time.mean() if not response_time.empty else 0
 
-@dg.asset(deps=[load_ortb_bid_data, bid_rate, win_rate, eCPM, avg_latency, calculate_temporal_metrics, calculate_seasonal_patterns])
+@dg.asset(deps=[load_ortb_bid_data, calc_bid_rate, calc_win_rate, eCPM, avg_latency, calculate_temporal_metrics, calculate_seasonal_patterns])
 def get_all_kpis(
     load_ortb_bid_data: pd.DataFrame,
-    bid_rate: float,
-    win_rate: float,
+    calc_bid_rate: float,
+    calc_win_rate: float,
     eCPM: float,
     avg_latency: float,
     calculate_temporal_metrics: pd.DataFrame,
@@ -133,8 +133,8 @@ def get_all_kpis(
     # Save the main KPIs
     kpi_summary = {
         'overall_metrics': {
-            'bid_rate': bid_rate,
-            'win_rate': win_rate,
+            'bid_rate': calc_bid_rate,
+            'win_rate': calc_win_rate,
             'eCPM': eCPM,
             'avg_latency': avg_latency,
             'total_bids': len(load_ortb_bid_data)
@@ -154,8 +154,8 @@ def get_all_kpis(
     # Print summary
     print("oRTB KPIs and Temporal Analysis:")
     print("========================================")
-    print(f"Bid Rate: {bid_rate:.2%}")
-    print(f"Win Rate: {win_rate:.2%}")
+    print(f"Bid Rate: {calc_bid_rate:.2%}")
+    print(f"Win Rate: {calc_win_rate:.2%}")
     print(f"eCPM: ${eCPM:.2f}")
     print(f"Average Latency: {avg_latency:.2f} ms")
     print(f"Total Bids: {len(load_ortb_bid_data)}")

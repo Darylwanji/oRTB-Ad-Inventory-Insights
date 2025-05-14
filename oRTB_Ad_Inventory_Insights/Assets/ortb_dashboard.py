@@ -7,8 +7,8 @@ import pandas as pd
 import dagster as dg
 from oRTB_Ad_Inventory_Insights.Assets.ortb_kpis import (
     load_ortb_bid_data,
-    bid_rate,
-    win_rate,
+    calc_bid_rate,
+    calc_win_rate,
     eCPM,
     avg_latency,
     get_all_kpis
@@ -127,8 +127,8 @@ def create_streamlit_app():
 
     # Calculate KPIs
     def calculate_kpis(data):
-        bid_rate = bid_rate(data)
-        win_rate = win_rate(data)
+        bid_rate = calc_bid_rate(data)
+        win_rate = calc_win_rate(data)
         ecpm = eCPM(data)
         latency = avg_latency(data)
         return bid_rate, win_rate, ecpm, latency
